@@ -44,19 +44,16 @@ const TARGET_URL =
 
   await browser.close();
 
-  // 数値化（M / K / 万 対応）
-  const parseViewCount = text => {
+  const parseVideoCount = text => {
     if (!text) return null;
-
-    const t = text.replace(/,/g, "").toUpperCase();
-
-    if (t.includes("M")) return Math.round(parseFloat(t) * 1_000_000);
-    if (t.includes("K")) return Math.round(parseFloat(t) * 1_000);
-    if (t.includes("万")) return Math.round(parseFloat(t) * 10_000);
-
-    const n = Number(t);
-    return Number.isNaN(n) ? null : n;
+  
+    // "750 videos" → 750
+    const match = text.match(/([\d,.]+)/);
+    if (!match) return null;
+  
+    return Number(match[1].replace(/,/g, ""));
   };
+
 
   const viewCount = parseViewCount(viewText);
 
