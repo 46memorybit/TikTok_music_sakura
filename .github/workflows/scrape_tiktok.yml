@@ -2,7 +2,7 @@ name: TikTok Music View Count
 
 on:
   schedule:
-    - cron: "0 0 * * *" # 毎日0時（JSTではなくUTC）
+    - cron: "0 15 * * *"
   workflow_dispatch:
 
 jobs:
