@@ -168,9 +168,21 @@ const TARGET_URLS = [
       timeout: 60000,
     });
 
-    // ===== 音源名（title）取得 =====
-    const title = await page.title(); // 例: "Unhappy birthday構文 | TikTok"
-    const musicTitle = title.replace(" | TikTok", "").trim();
+    // ===== 音源名（h1[data-e2e="music-title"]）取得 =====
+    await page.waitForSelector(
+      'h1[data-e2e="music-title"]',
+      { timeout: 60000 }
+    );
+    
+    await page.waitForFunction(() => {
+      const el = document.querySelector('h1[data-e2e="music-title"]');
+      return el && el.innerText && el.innerText.trim().length > 0;
+    }, { timeout: 60000 });
+    
+    const musicTitle = await page.$eval(
+      'h1[data-e2e="music-title"]',
+      el => el.innerText.trim()
+    );
 
     // ===== 動画数取得 =====
     await page.waitForSelector(
