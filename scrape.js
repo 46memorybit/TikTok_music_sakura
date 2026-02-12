@@ -166,19 +166,19 @@ const TARGET_URLS = [
 
     await page.goto(url, {
       waitUntil: "networkidle2",
-      timeout: 60000,
+      timeout: 180000,
     });
 
     // ===== 音源名（h1[data-e2e="music-title"]）取得 =====
     await page.waitForSelector(
       'h1[data-e2e="music-title"]',
-      { timeout: 60000 }
+      { timeout: 180000 }
     );
     
     await page.waitForFunction(() => {
       const el = document.querySelector('h1[data-e2e="music-title"]');
       return el && el.innerText && el.innerText.trim().length > 0;
-    }, { timeout: 60000 });
+    }, { timeout: 180000 });
     
     const musicTitle = await page.$eval(
       'h1[data-e2e="music-title"]',
@@ -188,13 +188,13 @@ const TARGET_URLS = [
     // ===== 動画数取得 =====
     await page.waitForSelector(
       'h2[data-e2e="music-video-count"]',
-      { timeout: 60000 }
+      { timeout: 180000 }
     );
 
     await page.waitForFunction(() => {
       const el = document.querySelector('h2[data-e2e="music-video-count"]');
       return el && el.innerText && el.innerText.trim().length > 0;
-    }, { timeout: 60000 });
+    }, { timeout: 180000 });
 
     const viewText = await page.$eval(
       'h2[data-e2e="music-video-count"]',
